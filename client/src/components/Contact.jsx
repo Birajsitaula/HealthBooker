@@ -17,16 +17,13 @@ const Contact = () => {
   };
 
   return (
-    <section
-      className="register-section flex-center"
-      id="contact"
-    >
+    <section className="register-section flex-center" id="contact">
       <div className="contact-container flex-center contact">
         <h2 className="form-heading">Contact Us</h2>
         <form
           method="POST"
-          action={`https://formspree.io/f/${process.env.REACT_FORMIK_SECRET}`}
-          className="register-form "
+          action={`https://formspree.io/f/${process.env.REACT_APP_FORMIK_SECRET}`}
+          className="register-form"
         >
           <input
             type="text"
@@ -55,10 +52,7 @@ const Contact = () => {
             cols="12"
           ></textarea>
 
-          <button
-            type="submit"
-            className="btn form-btn"
-          >
+          <button type="submit" className="btn form-btn">
             send
           </button>
         </form>
