@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/footer.css";
-import { FaFacebookF, FaYoutube, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaYoutube, FaInstagram, FaGithub } from "react-icons/fa";
 import { HashLink } from "react-router-hash-link";
 import { NavLink } from "react-router-dom";
 
@@ -37,7 +37,7 @@ const Footer = () => {
             <ul>
               <li className="facebook">
                 <a
-                  href="https://www.facebook.com/"
+                  href="https://www.facebook.com/biraj.sitaula.5"
                   target={"_blank"}
                   rel="noreferrer"
                 >
@@ -46,7 +46,7 @@ const Footer = () => {
               </li>
               <li className="youtube">
                 <a
-                  href="https://www.youtube.com/"
+                  href="https://www.youtube.com/@birajsitaula8645"
                   target={"_blank"}
                   rel="noreferrer"
                 >
@@ -55,25 +55,34 @@ const Footer = () => {
               </li>
               <li className="instagram">
                 <a
-                  href="https://www.instagram.com/"
+                  href="https://www.instagram.com/birajsitaula21/"
                   target={"_blank"}
                   rel="noreferrer"
                 >
                   <FaInstagram />
                 </a>
               </li>
+              <li className="GitHub">
+                <a
+                  href="https://www.github.com/birajsitaula"
+                  target={"_blank"}
+                  rel="noreferrer"
+                >
+                  <FaGithub />
+                </a>
+              </li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          Made by{" "}
+          Made by
           <a
-            href="https://www.linkedin.com/in/dunna-avinash"
+            href="https://www.linkedin.com/in/biraj-sitaula-aa7897188/"
             target="_blank"
             rel="noreferrer"
           >
-            Avinash
-          </a>{" "}
+            Biraj & Bramdev
+          </a>
           © {new Date().getFullYear()}
         </div>
       </footer>
