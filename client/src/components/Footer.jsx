@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/footer.css";
-import { FaFacebookF, FaYoutube, FaInstagram, FaGithub } from "react-icons/fa";
+import { FaFacebookF, FaYoutube, FaInstagram, FaTwitter } from "react-icons/fa";
 import { HashLink } from "react-router-hash-link";
 import { NavLink } from "react-router-dom";
 
@@ -62,13 +62,13 @@ const Footer = () => {
                   <FaInstagram />
                 </a>
               </li>
-              <li className="GitHub">
+              <li className="X">
                 <a
-                  href="https://www.github.com/birajsitaula"
+                  href="https://x.com/BirajSitaula21"
                   target={"_blank"}
                   rel="noreferrer"
                 >
-                  <FaGithub />
+                  <FaTwitter />
                 </a>
               </li>
             </ul>
