@@ -4,7 +4,8 @@
   "description": "Doctor appointment website",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "echo \"No build step required for Node.js backend\""
   },
   "author": "Avinash905",
   "license": "ISC",
