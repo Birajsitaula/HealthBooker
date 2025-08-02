@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "echo \"No build step required for Node.js backend\""
+    "build": "echo \"Vercel build complete\""
   },
-  "author": "Avinash905",
+  "author": "Biraj sitaula & Bramdev Sha",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
