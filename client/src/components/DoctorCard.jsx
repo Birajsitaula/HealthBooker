@@ -43,20 +43,14 @@ const DoctorCard = ({ ele }) => {
         <strong>Phone: </strong>
         {ele?.userId?.mobile}
       </p>
-      <button
-        className="btn appointment-btn"
-        onClick={handleModal}
-      >
+      <button className="btn appointment-btn" onClick={handleModal}>
         Book Appointment
       </button>
-      {modalOpen && (
-        <BookAppointment
-          setModalOpen={setModalOpen}
-          ele={ele}
-        />
-      )}
+      {modalOpen && <BookAppointment setModalOpen={setModalOpen} ele={ele} />}
     </div>
   );
 };
 
 export default DoctorCard;
+
+// Using Searching Algorithm
