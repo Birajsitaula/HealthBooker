@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../components/Loading";
 import fetchData from "../helper/apiCall";
 import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 function Profile() {
+  const navigate = useNavigate();
   const { userId } = jwt_decode(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
@@ -40,7 +42,9 @@ function Profile() {
       });
       setFile(temp.pic);
       dispatch(setLoading(false));
-    } catch (error) {}
+    } catch (error) {
+      dispatch(setLoading(false));
+    }
   };
 
   useEffect(() => {
@@ -76,11 +80,12 @@ function Profile() {
         return toast.error("First name must be at least 3 characters long");
       } else if (lastname.length < 3) {
         return toast.error("Last name must be at least 3 characters long");
-      } else if (password.length < 5) {
+      } else if (password && password.length < 5) {
         return toast.error("Password must be at least 5 characters long");
       } else if (password !== confpassword) {
         return toast.error("Passwords do not match");
       }
+
       await toast.promise(
         axios.put(
           "/user/updateprofile",
@@ -93,6 +98,7 @@ function Profile() {
             gender,
             email,
             password,
+            pic: file,
           },
           {
             headers: {
@@ -104,13 +110,32 @@ function Profile() {
           pending: "Updating profile...",
           success: "Profile updated successfully",
           error: "Unable to update profile",
-          loading: "Updating profile...",
         }
       );
 
       setFormDetails({ ...formDetails, password: "", confpassword: "" });
     } catch (error) {
       return toast.error("Unable to update profile");
+    }
+  };
+
+  // Handle Profile Picture Change
+  const handleFileChange = async (e) => {
+    const uploadedFile = e.target.files[0];
+    if (!uploadedFile) return;
+
+    const formData = new FormData();
+    formData.append("file", uploadedFile);
+    formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
+
+    try {
+      const response = await axios.post(
+        process.env.REACT_APP_CLOUDINARY_BASE_URL,
+        formData
+      );
+      setFile(response.data.secure_url);
+    } catch (error) {
+      toast.error("Unable to upload image");
     }
   };
 
@@ -121,16 +146,34 @@ function Profile() {
       ) : (
         <section className="register-section flex-center">
           <div className="profile-container flex-center">
-            <h2 className="form-heading">Profile</h2>
-            <img
-              src={file}
-              alt="profile"
-              className="profile-pic"
-            />
-            <form
-              onSubmit={formSubmit}
-              className="register-form"
+            {/* Back to Dashboard Button */}
+            <button
+              onClick={() => navigate("/")}
+              className="btn back-dashboard-btn"
+              style={{
+                alignSelf: "flex-start",
+                marginBottom: "10px",
+                backgroundColor: "#6c757d",
+                color: "white",
+                border: "none",
+                padding: "6px 12px",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+              aria-label="Back to dashboard"
             >
+              ← Back to Dashboard
+            </button>
+
+            <h2 className="form-heading">Profile</h2>
+            <img src={file} alt="profile" className="profile-pic" />
+            <input
+              type="file"
+              onChange={handleFileChange}
+              accept="image/*"
+              style={{ marginBottom: "10px" }}
+            />
+            <form onSubmit={formSubmit} className="register-form">
               <div className="form-same-row">
                 <input
                   type="text"
@@ -215,10 +258,7 @@ function Profile() {
                   onChange={inputChange}
                 />
               </div>
-              <button
-                type="submit"
-                className="btn form-btn"
-              >
+              <button type="submit" className="btn form-btn">
                 update
               </button>
             </form>

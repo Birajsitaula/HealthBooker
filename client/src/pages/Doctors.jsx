@@ -1,3 +1,4 @@
+// Searching and sorting with adding new css
 import React, { useEffect, useState } from "react";
 import DoctorCard from "../components/DoctorCard";
 import Footer from "../components/Footer";
@@ -11,7 +12,8 @@ import Empty from "../components/Empty";
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // search state
+  const [searchTerm, setSearchTerm] = useState(""); // search
+  const [sortOption, setSortOption] = useState(""); // sorting
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
 
@@ -26,13 +28,22 @@ const Doctors = () => {
     fetchAllDocs();
   }, []);
 
-  // Filter doctors based on specialization
+  // 1️⃣ Filter by specialization
   const filteredDoctors =
     searchTerm.trim() === ""
       ? doctors
       : doctors.filter((doc) =>
           doc.specialization.toLowerCase().includes(searchTerm.toLowerCase())
         );
+
+  // 2️⃣ Sort the filtered doctors
+  const sortedDoctors = [...filteredDoctors].sort((a, b) => {
+    if (sortOption === "experienceAsc") return a.experience - b.experience;
+    if (sortOption === "experienceDesc") return b.experience - a.experience;
+    if (sortOption === "feesAsc") return a.fees - b.fees;
+    if (sortOption === "feesDesc") return b.fees - a.fees;
+    return 0; // no sorting
+  });
 
   return (
     <>
@@ -42,18 +53,32 @@ const Doctors = () => {
         <section className="container doctors">
           <h2 className="page-heading">Our Doctors</h2>
 
-          {/* Search Input */}
-          <input
-            type="text"
-            placeholder="Search by specialization..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
+          {/* 🔹 Search & Sort Container */}
+          <div className="filter-bar">
+            <input
+              type="text"
+              placeholder="Search by specialization..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
 
-          {filteredDoctors.length > 0 ? (
+            <select
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="sort-dropdown"
+            >
+              <option value="">Sort by</option>
+              <option value="experienceAsc">Experience: Low to High</option>
+              <option value="experienceDesc">Experience: High to Low</option>
+              <option value="feesAsc">Fees: Low to High</option>
+              <option value="feesDesc">Fees: High to Low</option>
+            </select>
+          </div>
+
+          {sortedDoctors.length > 0 ? (
             <div className="doctors-card-container">
-              {filteredDoctors.map((ele) => (
+              {sortedDoctors.map((ele) => (
                 <DoctorCard ele={ele} key={ele._id} />
               ))}
             </div>

@@ -69,6 +69,25 @@ function Login() {
   return (
     <section className="register-section flex-center">
       <div className="register-container flex-center">
+        {/* Back to Homepage Button */}
+        <button
+          onClick={() => navigate("/")}
+          className="btn back-home-btn"
+          style={{
+            alignSelf: "flex-start",
+            marginBottom: "10px",
+            backgroundColor: "#6c757d",
+            color: "white",
+            border: "none",
+            padding: "6px 12px",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+          aria-label="Back to homepage"
+        >
+          ← Back to Homepage
+        </button>
+
         <h2 className="form-heading">Sign In</h2>
         <form onSubmit={formSubmit} className="register-form">
           <input
