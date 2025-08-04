@@ -69,7 +69,6 @@ function Login() {
   return (
     <section className="register-section flex-center">
       <div className="register-container flex-center">
-        {/* Back to Homepage Button */}
         <button
           onClick={() => navigate("/")}
           className="btn back-home-btn"
