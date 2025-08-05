@@ -28,7 +28,7 @@ const Doctors = () => {
     fetchAllDocs();
   }, []);
 
-  // 1️⃣ Filter by specialization
+  //  Filter by specialization
   const filteredDoctors =
     searchTerm.trim() === ""
       ? doctors
@@ -36,7 +36,7 @@ const Doctors = () => {
           doc.specialization.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-  // 2️⃣ Sort the filtered doctors
+  //  Sort the filtered doctors
   const sortedDoctors = [...filteredDoctors].sort((a, b) => {
     if (sortOption === "experienceAsc") return a.experience - b.experience;
     if (sortOption === "experienceDesc") return b.experience - a.experience;
