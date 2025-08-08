@@ -1,4 +1,3 @@
-// Searching and sorting with adding new css
 import React, { useEffect, useState } from "react";
 import DoctorCard from "../components/DoctorCard";
 import Footer from "../components/Footer";
